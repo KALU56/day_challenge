@@ -1,16 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../design_system/widgets/preview/design_system_preview.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const Scaffold(
-        body: Center(
-          child: Text('DayChallenge App Startup'),
-        ),
-      ),
+      builder: (context, state) => const DesignSystemPreview(),
     ),
   ],
 );
