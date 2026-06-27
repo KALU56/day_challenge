@@ -29,10 +29,10 @@ void main() async {
     await dbService.openBox<dynamic>(AppKeys.challengesBox);
     await dbService.openBox<dynamic>(AppKeys.settingsBox);
   } catch (e, st) {
-    // If initialization fails, print the error and continue (app can still run)
+    // If initialization fails, log the error and continue (app can still run)
     // Repositories should handle absent boxes gracefully.
-    print('Hive initialization warning: $e');
-    print(st);
+    debugPrint('Hive initialization warning: $e');
+    debugPrint('$st');
   }
 
   runApp(
