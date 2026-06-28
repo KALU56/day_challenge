@@ -8,9 +8,11 @@ class DeepLinkSharingService {
     required String challengerName,
     required String challengeTitle,
   }) async {
-    final deepLink = '${appScheme}invite?id=$challengeId&by=$challengerName&title=${Uri.encodeComponent(challengeTitle)}';
-    final shareMessage = 'Join my DayChallenge: "$challengeTitle"! Open this link in the app: $deepLink';
-    await Share.share(shareMessage);
+    final deepLink =
+        '${appScheme}invite?id=$challengeId&by=$challengerName&title=${Uri.encodeComponent(challengeTitle)}';
+    final shareMessage =
+        'Join my DayChallenge: "$challengeTitle"! Open this link in the app: $deepLink';
+    await SharePlus.instance.share(ShareParams(text: shareMessage));
   }
 
   Future<void> sharePromiseRequest({
@@ -18,9 +20,11 @@ class DeepLinkSharingService {
     required String senderName,
     required int coins,
   }) async {
-    final deepLink = '${appScheme}promise?id=$challengeId&from=$senderName&coins=$coins';
-    final shareMessage = 'I missed a day! Please accept my Promise request to protect my streak. Click here: $deepLink';
-    await Share.share(shareMessage);
+    final deepLink =
+        '${appScheme}promise?id=$challengeId&from=$senderName&coins=$coins';
+    final shareMessage =
+        'I missed a day! Please accept my Promise request to protect my streak. Click here: $deepLink';
+    await SharePlus.instance.share(ShareParams(text: shareMessage));
   }
 
   Future<void> shareFreezeGift({
@@ -28,7 +32,8 @@ class DeepLinkSharingService {
     required String senderName,
   }) async {
     final deepLink = '${appScheme}freeze?id=$challengeId&from=$senderName';
-    final shareMessage = 'I sent you a Streak Freeze! Click here to protect your streak today: $deepLink';
-    await Share.share(shareMessage);
+    final shareMessage =
+        'I sent you a Streak Freeze! Click here to protect your streak today: $deepLink';
+    await SharePlus.instance.share(ShareParams(text: shareMessage));
   }
 }

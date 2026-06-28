@@ -42,7 +42,7 @@ dependencies:
   flutter_local_notifications: ^17.2.1
   google_fonts: ^6.2.1
   uuid: ^4.4.0
-  share_plus: ^10.0.1
+  share_plus: ^13.2.0
   audioplayers: ^6.0.0
   path_provider: ^2.1.3
 
