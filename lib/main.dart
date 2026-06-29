@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 
 import 'app/app.dart';
@@ -26,7 +25,7 @@ void main() async {
 
     // Open core boxes used across the app
     await dbService.openBox<UserProfileModel>(AppKeys.userProfileBox);
-    await dbService.openBox<dynamic>(AppKeys.challengesBox);
+    await dbService.openBox<ChallengeModel>(AppKeys.challengesBox);
     await dbService.openBox<dynamic>(AppKeys.settingsBox);
   } catch (e, st) {
     // If initialization fails, log the error and continue (app can still run)
@@ -35,9 +34,5 @@ void main() async {
     debugPrint('$st');
   }
 
-  runApp(
-    const ProviderScope(
-      child: DayChallengeApp(),
-    ),
-  );
+  runApp(const DayChallengeApp());
 }
