@@ -29,7 +29,7 @@ class MainBottomNavBar extends StatelessWidget {
     Color getIconColor(int index) {
       return currentIndex == index
           ? theme.colorScheme.onPrimary
-          : bottomNavTheme.unselectedItemColor ?? AppColors.lightTextSecondary;
+          : bottomNavTheme.unselectedItemColor ?? theme.colorScheme.onSurface.withValues(alpha: 0.6);
     }
 
     return CurvedNavigationBar(

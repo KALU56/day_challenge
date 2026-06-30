@@ -10,12 +10,12 @@ class CategoriesSection extends StatefulWidget {
 class _CategoriesSectionState extends State<CategoriesSection> {
   int _selectedIndex = 0;
   
-  final List<Map<String, dynamic>> _categories = [
-    {'name': 'All', 'icon': Icons.grid_view_rounded},
-    {'name': 'Health', 'icon': Icons.favorite_rounded},
-    {'name': 'Work', 'icon': Icons.work_rounded},
-    {'name': 'Study', 'icon': Icons.book_rounded},
-    {'name': 'Fitness', 'icon': Icons.fitness_center_rounded},
+  final List<({String name, IconData icon})> _categories = [
+    (name: 'All', icon: Icons.grid_view_rounded),
+    (name: 'Health', icon: Icons.favorite_rounded),
+    (name: 'Work', icon: Icons.work_rounded),
+    (name: 'Study', icon: Icons.book_rounded),
+    (name: 'Fitness', icon: Icons.fitness_center_rounded),
   ];
 
   @override
@@ -50,9 +50,9 @@ class _CategoriesSectionState extends State<CategoriesSection> {
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeInOut,
                   child: FilterChip(
-                    label: Text(cat['name']),
+                    label: Text(cat.name),
                     avatar: Icon(
-                      cat['icon'], 
+                      cat.icon,
                       size: 18,
                       color: isSelected ? theme.colorScheme.onPrimary : theme.colorScheme.onSurface,
                     ),
