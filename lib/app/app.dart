@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app_theme.dart';
-import 'routes.dart';
 
 class DayChallengeApp extends StatelessWidget {
   const DayChallengeApp({super.key});
@@ -12,10 +11,11 @@ class DayChallengeApp extends StatelessWidget {
     return ProviderScope(
       child: MaterialApp.router(
         title: 'DayChallenge',
-        theme: AppTheme.lightTheme,
-        darkTheme: AppTheme.darkTheme,
-        themeMode: ThemeMode.system,
-        routerConfig: appRouter,
+        theme: AppTheme.light(),
+        darkTheme: AppTheme.dark(),
+        themeMode: ThemeMode
+            .dark, // change to ThemeMode.system once Settings screen exists
+
         debugShowCheckedModeBanner: false,
       ),
     );
