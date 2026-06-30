@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app_theme.dart';
-import '../pages/home/home_screen.dart';
+import 'app_router.dart';
 
 
 class DayChallengeApp extends StatelessWidget {
