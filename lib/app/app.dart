@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app_theme.dart';
+import '../pages/home/home_screen.dart';
+
 
 class DayChallengeApp extends StatelessWidget {
   const DayChallengeApp({super.key});
@@ -9,13 +11,12 @@ class DayChallengeApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
-      child: MaterialApp.router(
+      child: MaterialApp(
         title: 'DayChallenge',
         theme: AppTheme.light(),
         darkTheme: AppTheme.dark(),
-        themeMode: ThemeMode
-            .dark, // change to ThemeMode.system once Settings screen exists
-
+        themeMode: ThemeMode.dark,
+        home: const HomeScreen(),
         debugShowCheckedModeBanner: false,
       ),
     );
