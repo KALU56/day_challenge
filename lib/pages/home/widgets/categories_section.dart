@@ -50,9 +50,9 @@ class _CategoriesSectionState extends State<CategoriesSection> {
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeInOut,
                   child: FilterChip(
-                    label: Text(cat['name']),
+                    label: Text(cat.name),
                     avatar: Icon(
-                      cat['icon'], 
+                      cat.icon,
                       size: 18,
                       color: isSelected ? theme.colorScheme.onPrimary : theme.colorScheme.onSurface,
                     ),
