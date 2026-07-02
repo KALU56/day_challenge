@@ -1,3 +1,4 @@
+import 'package:day_challenge/app/app_color.dart';
 import 'package:flutter/material.dart';
 
 class AppProgressBar extends StatelessWidget {
@@ -27,14 +28,7 @@ class AppProgressBar extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(999),
-                  gradient: LinearGradient(
-                    colors: [
-                      theme.colorScheme.primary,
-                      theme.colorScheme.secondary,
-                    ],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                  ),
+                  color: AppColors.primary,
                 ),
               ),
             ),
