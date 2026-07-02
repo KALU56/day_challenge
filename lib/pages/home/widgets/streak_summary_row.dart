@@ -9,102 +9,45 @@ class StreakSummaryRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final compact = constraints.maxWidth < 520;
-        final twoColumn = constraints.maxWidth < 900;
+        final isCompact = constraints.maxWidth < 420;
+        final spacing = isCompact ? 10.0 : 12.0;
 
-        if (compact) {
-          return Column(
-            children: const [
-              _SummaryCard(
-                label: 'Current streak',
-                value: '6d',
-                subtext: 'Flame pace',
-                accent: _SummaryAccent.streak,
-              ),
-              SizedBox(height: 12),
-              _SummaryCard(
-                label: 'Today complete',
-                value: '67%',
-                subtext: 'On track',
-                accent: _SummaryAccent.progress,
-              ),
-              SizedBox(height: 12),
-              _SummaryCard(
-                label: 'Total progress',
-                value: '82%',
-                subtext: 'Goal rhythm',
-                accent: _SummaryAccent.trophy,
-              ),
-            ],
-          );
-        }
+        final cards = [
+          _SummaryCard(
+            label: 'Current streak',
+            value: '6d',
+            subtext: 'Flame pace',
+            accent: _SummaryAccent.streak,
+            isCompact: isCompact,
+          ),
+          _SummaryCard(
+            label: 'Today complete',
+            value: '67%',
+            subtext: 'On track',
+            accent: _SummaryAccent.progress,
+            isCompact: isCompact,
+          ),
+          _SummaryCard(
+            label: 'Total progress',
+            value: '82%',
+            subtext: 'Goal rhythm',
+            accent: _SummaryAccent.trophy,
+            isCompact: isCompact,
+          ),
+        ];
 
-        if (twoColumn) {
-          final cardWidth = (constraints.maxWidth - 12) / 2;
-          return Wrap(
-            spacing: 12,
-            runSpacing: 12,
+        return SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          physics: const BouncingScrollPhysics(),
+          padding: EdgeInsets.symmetric(vertical: 2),
+          child: Row(
             children: [
-              SizedBox(
-                width: cardWidth,
-                child: const _SummaryCard(
-                  label: 'Current streak',
-                  value: '6d',
-                  subtext: 'Flame pace',
-                  accent: _SummaryAccent.streak,
-                ),
-              ),
-              SizedBox(
-                width: cardWidth,
-                child: const _SummaryCard(
-                  label: 'Today complete',
-                  value: '67%',
-                  subtext: 'On track',
-                  accent: _SummaryAccent.progress,
-                ),
-              ),
-              SizedBox(
-                width: cardWidth,
-                child: const _SummaryCard(
-                  label: 'Total progress',
-                  value: '82%',
-                  subtext: 'Goal rhythm',
-                  accent: _SummaryAccent.trophy,
-                ),
-              ),
+              for (var index = 0; index < cards.length; index++) ...[
+                if (index > 0) SizedBox(width: spacing),
+                SizedBox(width: isCompact ? 180 : 200, child: cards[index]),
+              ],
             ],
-          );
-        }
-
-        return Row(
-          children: const [
-            Expanded(
-              child: _SummaryCard(
-                label: 'Current streak',
-                value: '6d',
-                subtext: 'Flame pace',
-                accent: _SummaryAccent.streak,
-              ),
-            ),
-            SizedBox(width: 12),
-            Expanded(
-              child: _SummaryCard(
-                label: 'Today complete',
-                value: '67%',
-                subtext: 'On track',
-                accent: _SummaryAccent.progress,
-              ),
-            ),
-            SizedBox(width: 12),
-            Expanded(
-              child: _SummaryCard(
-                label: 'Total progress',
-                value: '82%',
-                subtext: 'Goal rhythm',
-                accent: _SummaryAccent.trophy,
-              ),
-            ),
-          ],
+          ),
         );
       },
     );
@@ -117,18 +60,24 @@ class _SummaryCard extends StatelessWidget {
     required this.value,
     required this.subtext,
     required this.accent,
+    this.isCompact = false,
   });
 
   final String label;
   final String value;
   final String subtext;
   final _SummaryAccent accent;
+  final bool isCompact;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final borderColor = Theme.of(context).colorScheme.surface
         .withValues(alpha: 0.15);
+
+    final verticalPadding = isCompact ? 12.0 : 14.0;
+    final horizontalPadding = isCompact ? 12.0 : 14.0;
+    final labelValueGap = isCompact ? 8.0 : 10.0;
 
     return Container(
       decoration: BoxDecoration(
@@ -138,24 +87,25 @@ class _SummaryCard extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Theme.of(context).shadowColor.withValues(alpha: 0.06),
-            blurRadius: 12,
+            blurRadius: 14,
             offset: const Offset(0, 6),
           ),
         ],
       ),
-      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
-      child: Column(
+      padding: EdgeInsets.symmetric(
+        vertical: verticalPadding,
+        horizontal: horizontalPadding,
+      ),
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: 8,
-            runSpacing: 6,
-            children: [
-              _SummaryAccentIcon(accent: accent),
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 72),
-                child: Text(
+          _SummaryAccentIcon(accent: accent, isCompact: isCompact),
+          SizedBox(width: isCompact ? 10.0 : 12.0),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
                   label,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -163,23 +113,27 @@ class _SummaryCard extends StatelessWidget {
                     color: theme.textTheme.bodySmall?.color?.withValues(
                       alpha: 0.72,
                     ),
+                    fontSize: isCompact ? 11 : 12,
+                    height: 1.25,
                   ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Text(
-            value,
-            style: theme.textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            subtext,
-            style: theme.textTheme.bodySmall?.copyWith(
-              color: theme.textTheme.bodySmall?.color?.withValues(alpha: 0.65),
+                SizedBox(height: labelValueGap),
+                Text(
+                  value,
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    fontSize: isCompact ? 18 : 20,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  subtext,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.textTheme.bodySmall?.color?.withValues(alpha: 0.65),
+                    fontSize: isCompact ? 11 : 12,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -191,9 +145,10 @@ class _SummaryCard extends StatelessWidget {
 enum _SummaryAccent { streak, progress, trophy }
 
 class _SummaryAccentIcon extends StatelessWidget {
-  const _SummaryAccentIcon({required this.accent});
+  const _SummaryAccentIcon({required this.accent, this.isCompact = false});
 
   final _SummaryAccent accent;
+  final bool isCompact;
 
   @override
   Widget build(BuildContext context) {
@@ -215,13 +170,16 @@ class _SummaryAccentIcon extends StatelessWidget {
         break;
     }
 
+    final padding = isCompact ? 8.0 : 10.0;
+    final iconSize = isCompact ? 14.0 : 18.0;
+
     return Container(
       decoration: BoxDecoration(
         color: background,
         borderRadius: BorderRadius.circular(12),
       ),
-      padding: const EdgeInsets.all(10),
-      child: Icon(icon, size: 18, color: Colors.white),
+      padding: EdgeInsets.all(padding),
+      child: Icon(icon, size: iconSize, color: Colors.white),
     );
   }
 }

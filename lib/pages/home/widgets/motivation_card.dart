@@ -12,20 +12,20 @@ class MotivationCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
-        gradient: const LinearGradient(
-          colors: [AppColors.primary, AppColors.darkPrimaryBg],
+        gradient: LinearGradient(
+          colors: [AppColors.primary, theme.colorScheme.surface.withValues(alpha: 0.95)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withValues(alpha: 0.16),
-            blurRadius: 28,
+            color: AppColors.primary.withValues(alpha: 0.14),
+            blurRadius: 24,
             offset: const Offset(0, 10),
           ),
         ],
       ),
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 22),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -33,13 +33,13 @@ class MotivationCard extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.18),
+                  color: theme.colorScheme.onPrimary.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 padding: const EdgeInsets.all(10),
-                child: const Icon(
+                child: Icon(
                   Icons.lightbulb_outline_rounded,
-                  color: Colors.white,
+                  color: theme.colorScheme.onPrimary,
                   size: 20,
                 ),
               ),
@@ -47,7 +47,7 @@ class MotivationCard extends StatelessWidget {
               Text(
                 'Keep streaks alive',
                 style: theme.textTheme.bodyLarge?.copyWith(
-                  color: Colors.white70,
+                  color: theme.colorScheme.onPrimary.withValues(alpha: 0.8),
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -57,7 +57,7 @@ class MotivationCard extends StatelessWidget {
           Text(
             '“Consistency is your currency”',
             style: theme.textTheme.headlineSmall?.copyWith(
-              color: Colors.white,
+              color: theme.colorScheme.onPrimary,
               fontWeight: FontWeight.w700,
               height: 1.2,
             ),
@@ -66,7 +66,7 @@ class MotivationCard extends StatelessWidget {
           Text(
             'Finish today strong and let every small win stack into a habit you trust.',
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: Colors.white.withValues(alpha: 0.88),
+              color: theme.colorScheme.onPrimary.withValues(alpha: 0.9),
             ),
           ),
         ],

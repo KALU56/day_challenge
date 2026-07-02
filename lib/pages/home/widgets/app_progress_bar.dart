@@ -12,12 +12,13 @@ class AppProgressBar extends StatelessWidget {
       curve: Curves.easeInOut,
       tween: Tween(begin: 0, end: value),
       builder: (context, animatedValue, child) {
+        final theme = Theme.of(context);
+
         return Container(
-          height: 10,
+          height: 9,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface
-                .withValues(alpha: 0.14),
-            borderRadius: BorderRadius.circular(10),
+            color: theme.colorScheme.surface.withValues(alpha: 0.16),
+            borderRadius: BorderRadius.circular(999),
           ),
           child: Align(
             alignment: Alignment.centerLeft,
@@ -25,8 +26,12 @@ class AppProgressBar extends StatelessWidget {
               widthFactor: animatedValue.clamp(0.0, 1.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(999),
+                  gradient: LinearGradient(
+                    colors: [theme.colorScheme.primary, theme.colorScheme.secondary],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
                 ),
               ),
             ),

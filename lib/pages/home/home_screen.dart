@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../widgets/navigation/main_bottom_nav_bar.dart';
 import 'widgets/all_done_banner.dart';
+import 'widgets/challenge_calendar_timeline.dart';
 import 'widgets/challenge_card.dart';
 import 'widgets/freeze_received_banner.dart';
 import 'widgets/home_app_bar.dart';
@@ -74,21 +75,27 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
-          final contentMaxWidth = constraints.maxWidth > 920 ? 920.0 : constraints.maxWidth;
+          final contentMaxWidth = constraints.maxWidth > 920
+              ? 920.0
+              : constraints.maxWidth;
 
           return Center(
             child: ConstrainedBox(
               constraints: BoxConstraints(maxWidth: contentMaxWidth),
               child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: _horizontalPadding,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     const SizedBox(height: 10),
+                    const ChallengeCalendarTimeline(),
+                    const SizedBox(height: 22),
                     const MotivationCard(),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 22),
                     const StreakSummaryRow(),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 22),
                     Column(
                       children: _challenges
                           .map(

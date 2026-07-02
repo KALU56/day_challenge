@@ -27,18 +27,10 @@ class HomeAppBar extends StatelessWidget {
               Text(
                 'Today',
                 style: theme.textTheme.labelLarge?.copyWith(
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 6),
-              Text(
-                'Challenge momentum is real.',
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+
               const SizedBox(height: 12),
               Wrap(
                 spacing: 8,
@@ -73,14 +65,7 @@ class HomeAppBar extends StatelessWidget {
                   Text(
                     'Today',
                     style: theme.textTheme.labelLarge?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    'Challenge momentum is real.',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
