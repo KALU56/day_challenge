@@ -1,63 +1,108 @@
 import 'package:flutter/material.dart';
 
+import 'coin_badge.dart';
+
 class HomeAppBar extends StatelessWidget {
-  const HomeAppBar({super.key});
+  const HomeAppBar({
+    super.key,
+    required this.onGiftTap,
+    required this.onNotificationTap,
+  });
+
+  final VoidCallback onGiftTap;
+  final VoidCallback onNotificationTap;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final compactLayout = constraints.maxWidth < 360;
+
+        if (compactLayout) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CircleAvatar(
-                radius: 24,
-                backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.1),
-                child: Icon(
-                  Icons.person,
-                  color: theme.colorScheme.primary,
+              Text(
+                'Today',
+                style: theme.textTheme.labelLarge?.copyWith(
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-              const SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
+              const SizedBox(height: 6),
+              Text(
+                'Challenge momentum is real.',
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
                 children: [
-                  Text(
-                    'Hello,',
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
-                    ),
+                  const CoinBadge(amount: 1240),
+                  IconButton(
+                    onPressed: onGiftTap,
+                    icon: const Icon(Icons.card_giftcard_rounded),
+                    color: theme.iconTheme.color,
+                    tooltip: 'Gifts',
                   ),
-                  Text(
-                    'User',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                  IconButton(
+                    onPressed: onNotificationTap,
+                    icon: const Icon(Icons.notifications_none_rounded),
+                    color: theme.iconTheme.color,
+                    tooltip: 'Notifications',
                   ),
                 ],
               ),
             ],
-          ),
-          Container(
-            decoration: BoxDecoration(
-              color: theme.colorScheme.surface,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: theme.dividerTheme.color ?? Colors.grey.withValues(alpha: 0.2),
+          );
+        }
+
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Today',
+                    style: theme.textTheme.labelLarge?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    'Challenge momentum is real.',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
               ),
             ),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.notifications_none_rounded),
+            const CoinBadge(amount: 1240),
+            const SizedBox(width: 12),
+            IconButton(
+              onPressed: onGiftTap,
+              icon: const Icon(Icons.card_giftcard_rounded),
+              color: theme.iconTheme.color,
+              tooltip: 'Gifts',
             ),
-          ),
-        ],
-      ),
+            IconButton(
+              onPressed: onNotificationTap,
+              icon: const Icon(Icons.notifications_none_rounded),
+              color: theme.iconTheme.color,
+              tooltip: 'Notifications',
+            ),
+          ],
+        );
+      },
     );
   }
 }
